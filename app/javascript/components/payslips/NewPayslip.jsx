@@ -21,14 +21,12 @@ export const NewPayslip = () => {
     const navigate = useNavigate();
 
     const onSubmit = () => {
-        console.log(getValues())
         const salaryDetails = Object.entries(getValues()).map(ele =>{
             return {
                 id: Number(ele[0].split("_")[1]),
                 value: Number(ele[1])
             }
         })
-        console.log(salaryDetails)
         const requestBody = {
             "payslip": {
                 "employee_id": id,

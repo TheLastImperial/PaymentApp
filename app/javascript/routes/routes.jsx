@@ -56,7 +56,11 @@ export const router = createBrowserRouter([
             {
                 path: "/payslips/:id",
                 element: <Payslip/>
-            }
+            },
+            {
+                path: "/",
+                element: <Employees/>
+            },
         ],
     },
 ]);

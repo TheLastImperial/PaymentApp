@@ -1,5 +1,4 @@
 import React from 'react'
-import { GoToNew } from '../commons'
 import { useAsync } from 'react-async-hook'
 import { ModelItem } from "../commons"
 const fetchPayslips = async()=> {
@@ -9,10 +8,6 @@ export const Payslips = () => {
     const { loading, result, execute } = useAsync(fetchPayslips, [])
   return (
     <>
-        <GoToNew btnText="Nueva nomina"
-            url="/payslips/new"
-            refetch={ execute }
-            />
         {
             !loading &&
             (

@@ -17,7 +17,7 @@ export const NavBar = () => {
         <>
             <nav className="navbar navbar-expand-sm navbar-dark bg-dark p-2">
                 <div className="container-fluid">
-                    <a className="navbar-brand" href="#">Navbar</a>
+                    <a className="navbar-brand">Pagos</a>
                     <button className="navbar-toggler" type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#navbarNav"
