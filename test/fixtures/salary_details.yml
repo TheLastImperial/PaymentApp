@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  value: 9.99
+  default_value: 9.99
+  conditional_value: 9.99
+  is_quantity: false
+  is_discount: false
+  is_main: false
+  role: one
+
+two:
+  name: MyString
+  value: 9.99
+  default_value: 9.99
+  conditional_value: 9.99
+  is_quantity: false
+  is_discount: false
+  is_main: false
+  role: two
