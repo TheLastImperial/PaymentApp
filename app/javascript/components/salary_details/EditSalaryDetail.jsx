@@ -1,16 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useAsync } from 'react-async-hook';
 import { useForm } from 'react-hook-form'
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 const fetchRoles = async() => {
   return (await fetch("/api/v1/roles.json")).json()
 }
 
+const fetchSalaryDetail = async( id ) => {
+    return (await fetch(`/api/v1/salary_details/${ id }.json`)).json()
+}
 
-export const NewSalaryDetail = () => {
-  const {handleSubmit, getValues, register } = useForm();
+export const EditSalaryDetail = () => {
+  const {handleSubmit, getValues, register, setValue } = useForm();
+  const { id } = useParams()
   const { loading, result } = useAsync(fetchRoles, []);
+  const { loading:loadingDetail, result:detail } = useAsync(fetchSalaryDetail, [ id ])
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -18,21 +23,37 @@ export const NewSalaryDetail = () => {
     const salaryDetail = {
       "salary_detail": getValues()
     }
-    fetch("/api/v1/salary_details.json", {
-      method: "POST",
+    fetch(`/api/v1/salary_details/${ id }.json`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(salaryDetail)
     })
     .then(resp => {
-      if( resp.status === 201 ){
+      if( resp.status === 200 ){
         location.status?.refetch();
         navigate("/salary_details")
       }
     })
   }
 
+  useEffect(() => {
+    if(loadingDetail)
+        return
+    setValue("name", detail.name)
+    setValue("value", detail.value)
+    setValue("conditional_value",detail.conditional_value)
+    setValue("is_quantity", detail.is_quantity)
+    setValue("is_discount", detail.is_discount)
+    setValue("is_main", detail.is_main)
+    setValue("role_id", detail.role_id)
+    // if(detail.role_id){
+    //     setValue("role_id", {name: } )
+    // }
+    
+  }, [loadingDetail])
+  
   return (
     <>
       <form onSubmit={ handleSubmit( onSubmit )}>

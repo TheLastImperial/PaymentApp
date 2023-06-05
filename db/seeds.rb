@@ -6,15 +6,16 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 Role.create!([
+    { name: "Rol General" },
     { name: "Chofer" },
     { name: "Cargador" },
-    { name: "Auxiliar" }
+    { name: "Auxiliar" },
 ])
 
 Employee.create!([
     { name: "Juan", role_id: 1},
     { name: "Pedro", role_id: 2},
-    { name: "Flor", role_id: 3}
+    { name: "Flor", role_id: 3},
 ])
 
 SalaryDetail.create!([
@@ -25,6 +26,7 @@ SalaryDetail.create!([
         is_quantity: true,
         is_discount: false,
         is_main: true,
+        role_id: 1,
     },
     {
         name: "Bono por entrega",
@@ -33,6 +35,7 @@ SalaryDetail.create!([
         is_quantity: true,
         is_discount: false,
         is_main: false,
+        role_id: 1,
     },
     {
         name: "Hora extra chofer",
@@ -41,7 +44,7 @@ SalaryDetail.create!([
         is_quantity: true,
         is_discount: false,
         is_main: false,
-        role_id: 1
+        role_id: 2
     },
     {
         name: "Hora extra cargador",
@@ -50,7 +53,7 @@ SalaryDetail.create!([
         is_quantity: true,
         is_discount: false,
         is_main: false,
-        role_id: 2
+        role_id: 3
     },
     {
         name: "Vale de despensa",
@@ -59,6 +62,7 @@ SalaryDetail.create!([
         is_quantity: false,
         is_discount: false,
         is_main: false,
+        role_id: 1,
     },
     {
         name: "ISR",
@@ -67,6 +71,7 @@ SalaryDetail.create!([
         is_quantity: false,
         is_discount: true,
         is_main: false,
+        role_id: 1,
     },
     {
         name: "ISR Extra",
@@ -75,5 +80,6 @@ SalaryDetail.create!([
         is_quantity: false,
         is_discount: true,
         is_main: false,
+        role_id: 1,
     },
 ])

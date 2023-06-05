@@ -1,3 +1,3 @@
 class SalaryDetail < ApplicationRecord
-  has_one :role
+  belongs_to :role
 end

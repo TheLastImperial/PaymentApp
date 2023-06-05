@@ -5,7 +5,7 @@ const { createBrowserRouter } = require("react-router-dom");
 import { App } from "../components/App";
 import { Employees, EditEmployee, NewEmployee } from '../components/employees/index.js';
 import { Roles, NewRole, EditRole } from '../components/roles';
-import { NewSalaryDetail, SalaryDetails } from '../components/salary_details';
+import { EditSalaryDetail, NewSalaryDetail, SalaryDetails } from '../components/salary_details';
 import { Payslips, NewPayslip, Payslip } from '../components/payslips';
 
 export const router = createBrowserRouter([
@@ -44,6 +44,10 @@ export const router = createBrowserRouter([
             {
                 path: "salary_details/new",
                 element: <NewSalaryDetail/>
+            },
+            {
+                path: "salary_details/edit/:id",
+                element: <EditSalaryDetail/>
             },
             {
                 path: "/payslips",

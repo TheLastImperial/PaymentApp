@@ -51,7 +51,7 @@ class Api::V1::PayslipsController < ApplicationController
 
     # Grocery vouchers
     @grocery_vouchers = SalaryDetail.where(
-      role_id: nil,
+      role_id: 1,
       is_discount: false,
       is_quantity: false
     )
@@ -67,7 +67,7 @@ class Api::V1::PayslipsController < ApplicationController
     # End Grocery vouchers
 
     # Discounts
-    @discounts = SalaryDetail.where(role_id: nil, is_discount: true)
+    @discounts = SalaryDetail.where(role_id: 1, is_discount: true)
     @discounts.each do |discount|
       total = payslip_details.reduce(0) { |t, pd| t + pd[:total] }
       next if total < discount.conditional_value
