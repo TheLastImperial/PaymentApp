@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { YesNotModal } from './YesNotModal';
 
 export const ModelItem = ({
         id,
@@ -12,7 +13,8 @@ export const ModelItem = ({
 
     }) => {
     const navigate = useNavigate()
-    
+    const [showModal, setShowModal] = useState(false);
+
     const onDelete = () => {
         fetch(`${deleteUrl}/${id}.json`, {
             method: "DELETE",
@@ -40,7 +42,7 @@ export const ModelItem = ({
                 </span>
                 <div>
                     <button type="button"
-                        onClick={ onDelete }
+                        onClick={ ()=> setShowModal(true) }
                         className="btn btn-danger mx-2">
                         Eliminar
                     </button>
@@ -51,6 +53,12 @@ export const ModelItem = ({
                     </button>
                 </div>
             </li>
+            <YesNotModal
+                txt={ `Deseas eliminar a ${ name } ?` }
+                show={ showModal }
+                onNot={ () => setShowModal(false) }
+                onYes={ () => { onDelete(); setShowModal(false)} }
+            />
         </>
     )
 }

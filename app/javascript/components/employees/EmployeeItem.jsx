@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { YesNotModal } from '../commons';
 
 export const EmployeeItem = ({id, name, refetch}) => {
     const navigate = useNavigate()
-    
+    const [showModal, setShowModal] = useState(false);
+
     const onDelete = () => {
         fetch(`/api/v1/employees/${id}.json`, {
             method: "DELETE",
@@ -33,7 +35,7 @@ export const EmployeeItem = ({id, name, refetch}) => {
                 </span>
                 <div>
                     <button type="button"
-                        onClick={ onDelete }
+                        onClick={ () => setShowModal(true) }
                         className="btn btn-danger mr-2">
                         Eliminar
                     </button>
@@ -49,6 +51,12 @@ export const EmployeeItem = ({id, name, refetch}) => {
                     </button>
                 </div>
             </li>
+            <YesNotModal
+                txt={ `Deseas eliminar a ${ name } ?` }
+                show={ showModal }
+                onNot={ () => setShowModal(false) }
+                onYes={ () => { onDelete(); setShowModal(false)} }
+            />
         </>
     )
 }
