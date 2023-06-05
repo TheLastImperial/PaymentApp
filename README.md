@@ -1,24 +1,53 @@
-# README
+# Payment App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Run the system
+Install gems dependencies
 
-Things you may want to cover:
+```bash
+$ bundle install
+```
 
-* Ruby version
+Setup the [database.yml](config/database.yml) with your database credentials and host.
+```yml
+default: &default
+  username: YOUR_DB_USER
+  password: YOUR_DB_PWD
+  host: YOUR_DB_HOST
+```
+Use the next commands to run the system.
 
-* System dependencies
+```bash
+$ rails db:create && rails db:migrate && rails db:seed
+```
 
-* Configuration
+This will create the database, tables and add initial columns to tables.
+Then to run the system use the next command:
+```bash
+$ bin/dev
+```
 
-* Database creation
+This command will up the rails server and the javascript and css listeners to edit ReactJS view and set custom CSS.
 
-* Database initialization
+## Entity Relationship Diagram
 
-* How to run the test suite
+The next image is the entity relationship diagram to the system.
 
-* Services (job queues, cache servers, search engines, etc.)
+![Entity Relationship Diagram](erd.png "Entity Relationship Diagram")
 
-* Deployment instructions
+## Software used
+ - Visual Studio Code
+ - Sublime merge
+ - Docker
+ - Ubuntu 22.04
+ - PostgreSQL 14
+ - Postman v9.31.28
 
-* ...
+## Frameworks and languages
+ - Ruby 3.2.2
+ - Ruby on Rails 7.0.5
+ - JavaScript
+ - ReactJS 18.2
+
+## Architecture
+ - MVC
+ - API Rest
