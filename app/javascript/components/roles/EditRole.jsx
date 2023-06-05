@@ -2,6 +2,7 @@ import React from 'react'
 import { useAsync } from 'react-async-hook'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
+import { InputInvalidMessage } from '../commons'
 
 const fetchRole = async( id ) => {
     return (await fetch(`/api/v1/roles/${ id }.json`)).json()
@@ -9,7 +10,7 @@ const fetchRole = async( id ) => {
 export const EditRole = () => {
     const { id } = useParams()
     const { loading, result } = useAsync(fetchRole, [ id ])
-    const { handleSubmit, register, getValues } = useForm();
+    const { handleSubmit, register, getValues, formState: { errors } } = useForm();
     const navigate = useNavigate()
 
     
@@ -43,9 +44,13 @@ export const EditRole = () => {
                         placeholder="name"
                         autoComplete="off"
                         defaultValue={ result.name }
-                        { ...register("name") }
+                        { ...register("name", { required: true }) }
                         />
-
+                        {
+                            errors.name &&
+                            <InputInvalidMessage
+                            msg="Debe ingresar el nuevo nombre." />
+                        }
                     <div className="d-flex justify-content-end">
                         <button type = "submit"
                             className="btn btn-primary">

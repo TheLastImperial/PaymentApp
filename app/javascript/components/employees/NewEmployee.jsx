@@ -2,20 +2,19 @@ import React from 'react'
 import { useAsync } from 'react-async-hook';
 import { useForm } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router-dom';
+import { InputInvalidMessage } from '../commons';
 
 const fetchRoles = async() => {
     return (await fetch("/api/v1/roles.json")).json()
 }
 export const NewEmployee = () => {
     const { loading, result } = useAsync(fetchRoles, [])
-    const { register, getValues, handleSubmit } = useForm();
+    const { register, getValues, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate()
     const location = useLocation()
     const onSubmit =() =>{
         const emp = {
-            "employee": {
-                "name": getValues("name")
-            }
+            "employee": getValues()
         };
 
         fetch("/api/v1/employees", {
@@ -35,12 +34,15 @@ export const NewEmployee = () => {
 
     return (
         <>
-            <form onSubmit={ handleSubmit(onSubmit) }>
+            <form onSubmit={ handleSubmit(onSubmit) } >
                 <input type="text"
                     className="form-control"
                     autoComplete="off"
                     placeholder="Nombre"
-                {...register("name")}/>
+                {...register("name", { required: true }) } />
+                {errors.name &&
+                    <InputInvalidMessage msg="Debe ingresar el nombre del nuevo empleado" />
+                }
 
                 {
                     !loading && (

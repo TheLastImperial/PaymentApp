@@ -1,9 +1,10 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { InputInvalidMessage } from '../commons'
 
 export const NewRole = () => {
-    const { register, handleSubmit, getValues } = useForm()
+    const { register, handleSubmit, getValues, formState: { errors } } = useForm()
     const location = useLocation();
     const navigate = useNavigate()
 
@@ -36,8 +37,13 @@ export const NewRole = () => {
                 className="form-control"
                 autoComplete="off"
                 placeholder="Nombre"
-                {...register("name")}
+                {...register("name", { required: true })}
             />
+            {
+                errors.name &&
+                <InputInvalidMessage
+                msg="Debe ingresar el nombre del nuevo rol" />
+            }
 
             <div className="d-flex justify-content-end mt-2">
                 <button type="submit"
