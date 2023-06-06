@@ -13,9 +13,9 @@ Role.create!([
 ])
 
 Employee.create!([
-    { name: "Juan", role_id: 1},
-    { name: "Pedro", role_id: 2},
-    { name: "Flor", role_id: 3},
+    { name: "Juan", role_id: 2},
+    { name: "Pedro", role_id: 3},
+    { name: "Flor", role_id: 4},
 ])
 
 SalaryDetail.create!([
