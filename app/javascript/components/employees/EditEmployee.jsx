@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useAsync } from 'react-async-hook';
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom';
@@ -16,8 +16,7 @@ export const EditEmployee = () => {
     const { loading:loadingRoles, result:roles=[] } = useAsync(fetchRoles, [])
     const { register, handleSubmit, getValues, formState: { errors }, setValue } = useForm();
     const { id } = useParams()
-    const { loading, result:employee } = useAsync(fetchEmployee, [ id ])
-    const [rolesList, setRolesList] = useState([])
+    const { loading:loadingEmployee, result:employee } = useAsync(fetchEmployee, [ id ])
     const navigate = useNavigate()
 
     const onSubmit = useCallback(()=>{
@@ -42,14 +41,12 @@ export const EditEmployee = () => {
     }, [ id ], )
 
     useEffect(() => {
-        if(!loadingRoles)
-            setRolesList(roles)
-
-        if( loading || loadingRoles )
+        if( loadingRoles || loadingEmployee )
             return;
+
         setValue("role_id", employee.role.id)
         setValue("name", employee.name)
-    }, [loading, loadingRoles, employee])
+    }, [loadingEmployee, loadingRoles, employee])
 
     return (
         <>
@@ -70,7 +67,7 @@ export const EditEmployee = () => {
                         <select className="form-select mt-2"
                             { ...register("role_id")}>
                             {
-                                rolesList.map(({ id, name}) => (
+                                roles.map(({ id, name}) => (
                                     <option key={ id } value={ id }>
                                     { name }
                                     </option>
